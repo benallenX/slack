@@ -1,63 +1,70 @@
 import React,{useState, useEffect} from 'react'
-import './Sidebar.css'
-import SidebarOption from '../SidebarOption/SidebarOption';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import CreateIcon from '@material-ui/icons/Create'
-import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import AppsIcon from '@material-ui/icons/Apps';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import AddIcon from '@material-ui/icons/Add';
-import db from '../fire'
+import styled from 'styled-components'
+import AddCircleIcon from '@material-ui/icons/AddCircleOutlineOutlined'
+// import db from '../fire'
 
 const Sidebar = () => {
-    const [channels, setChannels] = useState([])
+    // const [channels, setChannels] = useState([])
 
-    useEffect(() => {
-        db.collection('rooms').onSnapshot(snapshot => (
-            setChannels(
-                snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    name: doc.data().name
-                }))
-            )
-        ))
-    })
+    // useEffect(() => {
+    //     db.collection('rooms').onSnapshot(snapshot => (
+    //         setChannels(
+    //             snapshot.docs.map(doc => ({
+    //                 id: doc.id,
+    //                 name: doc.data().name
+    //             }))
+    //         )
+    //     ))
+    // })
 
     return (
-        <div className='sidebar'>
-            <div className="sidebar__header">
-                <div className="sidebar__info">
-                <h2>Dev Inc</h2>
-               <h3>
-                 <FiberManualRecordIcon/>
-                 Ben Allen
-                </h3>
-                </div>
-                <CreateIcon />
-            </div>
-            <SidebarOption Icon={InsertCommentIcon} title='Threads' />
-            <SidebarOption Icon={InboxIcon} title='Mentions & reactions' />
-            <SidebarOption Icon={DraftsIcon} title='Saved items' />
-            <SidebarOption Icon={BookmarkBorderIcon} title='Channel browser' />
-            <SidebarOption Icon={PeopleAltIcon} title='People & users' />
-            <SidebarOption Icon={AppsIcon} title='Apps' />
-            <SidebarOption Icon={FileCopyIcon} title='File browser' />
-            <SidebarOption Icon={ExpandLessIcon} title='Show less' />
-            <hr />
-            <SidebarOption Icon={ExpandMore} title='Channel' />
-            <hr />
-            <SidebarOption Icon={AddIcon} title='Add channel' />
-            {channels.map(channel => (
-                <SidebarOption title={channel.name} id={channel.id} />
-            ))}
-        </div>
+       <Container>
+            <WorkSpaceContainer>
+                <Name>
+                    Dev Inc.
+                </Name>
+                <NewMessage>
+                    <AddCircleIcon />
+                </NewMessage>
+            </WorkSpaceContainer>
+       </Container>
     )
 }
 
 export default Sidebar
+
+const Container = styled.div ` 
+display:flex;
+background-color: #3F0E40; 
+`
+
+const WorkSpaceContainer = styled.div `  
+color:white;
+height:65px;
+display:flex;
+align-items:center;
+padding-left:20px;
+justify-content:space-between;
+border-bottom: 1px solid #532753;
+`
+
+const Name = styled.div `  
+
+
+`
+
+const NewMessage = styled(AddCircleIcon) `  
+height:36px;
+width:36px;
+background-color:white;
+color:#3F0E40;
+fill:#3F0E40;
+justify-content:center;
+align-items:center;
+border-radius: 50%;
+margin-left:150px;
+
+&:hover {
+    background-color: gray;
+}
+`
